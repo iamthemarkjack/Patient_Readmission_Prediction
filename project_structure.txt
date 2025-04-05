@@ -1,0 +1,31 @@
+Patient_Readmission_Prediction/
+├── .dvc/                      # DVC configuration
+├── .github/                   # Github configuration
+├── airflow/                   # Airflow DAGs
+│   ├── dags/                  # Data gathering and pipeline DAGs
+├── data/                      # Data directory (DVC tracked)
+│   ├── raw/                   # Raw data
+│   ├── processed/             # Processed data
+│   └── .gitignore             # Ignore data files, use DVC instead
+├── feature_store/             # Feature store implementation
+│   ├── config/                # Feature store configuration
+│   ├── features/              # Feature definitions
+│   └── pipelines/             # Feature generation pipelines
+├── models/                    # Model training and evaluation
+│   ├── training/              # Training scripts
+│   ├── evaluation/            # Evaluation scripts
+│   └── deployment/            # Model deployment code
+├── monitoring/                # Monitoring components
+│   ├── prometheus/            # Prometheus configuration
+│   ├── alertmanager/          # AlertManager configuration
+│   ├── concept_drift/         # Concept drift detection code
+│   └── dashboards/            # Grafana dashboards
+├── serving/                   # Model serving API
+│   ├── app/                   # API code
+│   └── Dockerfile             # Dockerfile for API service
+├── notebooks/                 # Jupyter notebooks for exploration
+├── tests/                     # Unit and integration tests
+├── .gitignore
+├── docker-compose.yml         # Docker Compose configuration
+├── requirements.txt           # Python dependencies
+└── README.md                  # Project documentation
