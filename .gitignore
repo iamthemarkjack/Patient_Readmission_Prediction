@@ -3,4 +3,4 @@
 
 # Ignore __pycache__
 /dags/__pycache__
-/analysis_src/__pycache__
+/notebooks/analysis_src/__pycache__
