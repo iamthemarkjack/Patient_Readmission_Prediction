@@ -7,7 +7,7 @@
 /.dvc
 
 # Ignore logs
-/models/training/model_buildling.log
+/models/training/model_building.log
 
 # Ignore mlruns
 /models/training/mlruns
