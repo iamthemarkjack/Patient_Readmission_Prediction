@@ -1,0 +1,6 @@
+{
+    "model_name": "Readmission_Prediction_Model",
+    "model_version": 1,
+    "best_model_type": "RandomForest",
+    "f1_score": 0.14965986394557823
+}

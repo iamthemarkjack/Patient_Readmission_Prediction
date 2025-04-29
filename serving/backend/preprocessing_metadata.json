@@ -1,0 +1,23 @@
+{
+    "categorical_columns": [
+        "gender",
+        "primary_diagnosis",
+        "discharge_to",
+        "age_group",
+        "diagnosis_group",
+        "stay_bucket",
+        "procedure_category"
+    ],
+    "numerical_columns": [
+        "age",
+        "num_procedures",
+        "days_in_hospital",
+        "comorbidity_score",
+        "long_stay",
+        "procedures_diagnosis_interaction",
+        "high_risk_comorbidity",
+        "age_comorbidity_interaction",
+        "procedures_age_interaction",
+        "procedures_comorbidity_interaction"
+    ]
+}

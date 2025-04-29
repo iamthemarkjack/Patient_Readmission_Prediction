@@ -1,0 +1,40 @@
+2025-04-29 23:48:13,978 - MLFlow Experimentation - INFO - Starting model training pipeline
+2025-04-29 23:48:13,981 - MLFlow Experimentation - INFO - Configuration loaded from ../config/model_params.yml
+2025-04-29 23:48:14,122 - MLFlow Experimentation - INFO - Loading data from /tmp/dvc-storage/files/md5/f6/f4da650ba1409e2eee58449d4dc331 (version: v20250428_224705)
+2025-04-29 23:48:14,129 - MLFlow Experimentation - INFO - Loaded data shape: (5000, 18)
+2025-04-29 23:48:14,129 - MLFlow Experimentation - INFO - Starting data preprocessing
+2025-04-29 23:48:14,130 - MLFlow Experimentation - INFO - Identified 7 categorical columns and 10 numerical columns
+2025-04-29 23:48:14,149 - MLFlow Experimentation - INFO - Applied StandardScaler to 10 numerical columns
+2025-04-29 23:48:14,152 - MLFlow Experimentation - INFO - Data split: 4000 training samples, 1000 test samples
+2025-04-29 23:48:14,426 - MLFlow Experimentation - INFO - Applied SMOTENC: 6468 samples after resampling
+2025-04-29 23:48:14,630 - MLFlow Experimentation - INFO - Started parent MLflow run: df1d450968b5414dacb20a4bbe292997
+2025-04-29 23:48:14,630 - MLFlow Experimentation - INFO - Training RandomForest...
+2025-04-29 23:48:14,635 - MLFlow Experimentation - INFO - Starting GridSearchCV for RandomForest
+2025-04-29 23:49:25,942 - MLFlow Experimentation - INFO - Completed GridSearchCV for RandomForest
+2025-04-29 23:49:26,580 - MLFlow Experimentation - INFO - Best parameters for RandomForest: {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}
+2025-04-29 23:49:29,753 - MLFlow Experimentation - INFO - RandomForest Metrics - Accuracy: 0.7500, Precision: 0.1833, Recall: 0.1264, F1-score: 0.1497
+2025-04-29 23:49:29,754 - MLFlow Experimentation - INFO - Training XGBoost...
+2025-04-29 23:49:29,760 - MLFlow Experimentation - INFO - Starting GridSearchCV for XGBoost
+2025-04-29 23:50:05,925 - MLFlow Experimentation - INFO - Completed GridSearchCV for XGBoost
+2025-04-29 23:50:06,937 - MLFlow Experimentation - INFO - Best parameters for XGBoost: {'colsample_bytree': 0.8, 'learning_rate': 0.1, 'max_depth': 7, 'n_estimators': 500, 'subsample': 1.0}
+2025-04-29 23:50:09,523 - MLFlow Experimentation - INFO - XGBoost Metrics - Accuracy: 0.7730, Precision: 0.1728, Recall: 0.0805, F1-score: 0.1098
+2025-04-29 23:50:09,523 - MLFlow Experimentation - INFO - Training HistGradientBoosting...
+2025-04-29 23:50:09,524 - MLFlow Experimentation - WARNING - Unknown model: HistGradientBoosting, skipping
+2025-04-29 23:50:09,525 - MLFlow Experimentation - INFO - Selected best model: RandomForest with F1 score: 0.1497
+2025-04-29 23:50:09,557 - MLFlow Experimentation - INFO - Best model saved to ../../serving/backend/best_model.pkl
+2025-04-29 23:50:09,558 - MLFlow Experimentation - INFO - StandardScaler saved to ../../serving/frontend/standard_scaler.pkl
+2025-04-29 23:50:09,558 - MLFlow Experimentation - INFO - Encoders saved to ../../serving/frontend/encoders.pkl
+2025-04-29 23:50:09,558 - MLFlow Experimentation - INFO - Preprocessing metadata saved to ../../serving/frontend/preprocessing_metadata.json
+2025-04-29 23:50:12,225 - MLFlow Experimentation - INFO - Model comparison saved to model_comparison.csv
+2025-04-29 23:50:12,403 - MLFlow Experimentation - INFO - Model registered as 'Readmission_Prediction_Model' version 1
+2025-04-29 23:50:12,410 - MLFlow Experimentation - INFO - Model version 1 moved to Staging for review
+2025-04-29 23:50:12,410 - MLFlow Experimentation - INFO - Model registry info saved to ../../serving/backend/model_registry_info.json
+2025-04-29 23:50:12,412 - MLFlow Experimentation - INFO - 
+==== FINAL RESULTS ====
+2025-04-29 23:50:12,412 - MLFlow Experimentation - INFO - Best Model: RandomForest
+2025-04-29 23:50:12,413 - MLFlow Experimentation - INFO - F1 Score: 0.1497
+2025-04-29 23:50:12,413 - MLFlow Experimentation - INFO - Accuracy: 0.7500
+2025-04-29 23:50:12,413 - MLFlow Experimentation - INFO - Precision: 0.1833
+2025-04-29 23:50:12,413 - MLFlow Experimentation - INFO - Recall: 0.1264
+2025-04-29 23:50:12,413 - MLFlow Experimentation - INFO - All models and results are tracked in MLflow with parent run ID: df1d450968b5414dacb20a4bbe292997
+2025-04-29 23:50:12,414 - MLFlow Experimentation - INFO - Model training pipeline completed successfully

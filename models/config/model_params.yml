@@ -1,0 +1,25 @@
+# Model hyperparameter configurations
+models:
+  RandomForest:
+    param_grid:
+      n_estimators: [100, 300, 500]
+      max_depth: [None, 5, 10]
+      min_samples_split: [2, 5, 10]
+      min_samples_leaf: [1, 2, 4]
+  
+  XGBoost:
+    param_grid:
+      n_estimators: [100, 300, 500]
+      max_depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1, 0.3]
+      subsample: [0.8, 1.0]
+      colsample_bytree: [0.8, 1.0]
+  
+  HistGradientBoosting:
+    param_grid:
+      learning_rate: [0.01, 0.1, 0.2]
+      max_iter: [100, 300, 500]
+      max_depth: [None, 5, 10]
+      min_samples_leaf: [20, 30, 50]
+      l2_regularization: [0.0, 0.1, 1.0]
+      max_leaf_nodes: [None, 31, 63]

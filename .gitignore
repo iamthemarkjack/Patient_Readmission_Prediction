@@ -1,6 +1,17 @@
-# Ignore logs
-/logs
+# Ignore everything in airflow except for dags and docker-compose.yaml
+/airflow/config
+/airflow/logs
+/airflow/plugins
 
-# Ignore __pycache__
-/dags/__pycache__
+# Ignore .dvc
+/.dvc
+
+# Ignore logs
+/models/training/model_buildling.log
+
+# Ignore mlruns
+/models/training/mlruns
+
+# Ignore __pycache__ 
+airflow/dags/__pycache__
 /notebooks/analysis_src/__pycache__
