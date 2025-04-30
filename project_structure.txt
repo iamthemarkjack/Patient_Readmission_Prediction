@@ -21,34 +21,43 @@ Patient_Readmission_Prediction
 ├── .git
 ├── .gitignore
 ├── LICENSE
-├── models
+├── models                             # Model building
 │   ├── config
-│   │   └── model_params.yml
+│   │   └── model_params.yml           # Different models and hyperparameters to run experiments
 │   └── training
 │       ├── mlruns
-│       └── train_models.py
+│       └── train_models.py            # Main script for model training
 ├── monitoring
-├── notebooks
-│   ├── analysis_src
+├── notebooks   
+│   ├── analysis_src                   # Contains scripts to run analysis
 │   │   ├── basic_data_inspection.py
 │   │   ├── missing_values_analysis.py
 │   │   ├── plot_analysis.py
-│   ├── EDA.ipynb
-│   └── Test.ipynb
-├── project_structure.txt
-├── README.md
-├── requirements.txt
+│   ├── EDA.ipynb                      # Notebook containing EDA    
+│   └── Test.ipynb                     # Notebook where we test our feature engineering
+├── project_structure.txt              # This file
+├── Design_Document.pdf                # Talks about Low and High Level Design Choices
+├── User_Manual.pdf                    # User Manual for the AI Application
+├── flowchart.drawio                   # Flowchart drawio file
+├── flowchart.drawio.png               # PNG Flowchart drawio file
+├── README.md                           
+├── requirements.txt                   # Eequirements for running the experiments and notebooks
 ├── serving
-│   ├── backend
-│   │   ├── app.py
-│   │   ├── Dockerfile
-│   │   ├── model_registry_info.json
-│   │   ├── preprocessing_metadata.json
-│   │   └── requirements.txt
-│   ├── docker-compose.yml
-│   └── frontend
-│       ├── Dockerfile
-│       ├── requirements.txt
-│       └── streamlit.py
-└── tests
+│   ├── backend                        # Backend of the AI Application
+│   │   ├── app.py                     # Main RESTAPI script
+│   │   ├── Dockerfile                 # Dockerfile for the backend
+│   │   ├── pickles                    # Contains the pickled files of best model, encoders and scaler
+│   │   │   ├── best_model.pkl
+│   │   │   ├── encoders.pkl
+│   │   │   └── standard_scaler.pkl
+│   │   ├── metadata                   # Contains the metadata json files
+│   │   │   ├── model_registry_info.json
+│   │   │   └── preprocessing_metadata.json
+│   │   └── requirements.txt           # Requirements for backend
+│   ├── frontend                       # Frontend of the AI Application
+│   │   ├── Dockerfile                 # Dockerfile for the frontend
+│   │   ├── requirements.txt           # Requirements for the frontend
+│   │   └── streamlit.py               # Main streamlit app script
+│   ├── docker-compose.yml             # docker-compose yaml for starting the application services
+└── tests                              # Contains unit tests
     └── test_feature_adders.py
