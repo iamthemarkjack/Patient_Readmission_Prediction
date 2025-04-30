@@ -1,4 +1,5 @@
 # Model hyperparameter configurations
+
 models:
   RandomForest:
     param_grid:

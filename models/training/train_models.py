@@ -1,4 +1,5 @@
-# Import the libraries
+# Script to run the MLFlow experiment and train the models
+
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -197,7 +198,7 @@ def train_and_evaluate_models(data, model_configs):
         
         return best_models, best_metrics, client, parent_run_id
 
-def select_and_register_best_model(best_models, best_metrics, client, data, model_dir):
+def select_and_register_best_model(best_models, best_metrics, client, data, model_dir, version):
     """Select the best model and register it in MLflow Model Registry"""
     # Find the best model based on F1 score
     best_model_name = max(best_metrics, key=lambda k: best_metrics[k]['f1'])
@@ -206,30 +207,38 @@ def select_and_register_best_model(best_models, best_metrics, client, data, mode
     
     logger.info(f"Selected best model: {best_model_name} with F1 score: {final_metrics['f1']:.4f}")
     
-    # Create model directory if it doesn't exist
-    os.makedirs(model_dir, exist_ok=True)
+    # Create directory to store the best model and the encoders and scaler
+    pickle_dir = os.path.join(model_dir, 'pickles')
+    os.makedirs(pickle_dir, exist_ok=True)
+
+    # Create directory to save the metadata
+    meta_dir = os.path.join(model_dir, 'metadata')
+    os.makedirs(meta_dir, exist_ok=True)
     
     # Log the best overall model
     with mlflow.start_run(run_name="Best Model", nested=True) as best_run:
         mlflow.log_param("best_model", best_model_name)
         mlflow.log_params({f"param_{k}": v for k, v in final_best_model.get_params().items()})
+
+        # Log the dvc version
+        mlflow.log_param("data_version", version)
         
         for metric_name, metric_value in final_metrics.items():
             mlflow.log_metric(metric_name, metric_value)
         
         # Save the best model to file
-        model_path = os.path.join(model_dir, "best_model.pkl")
+        model_path = os.path.join(pickle_dir, "best_model.pkl")
         with open(model_path, "wb") as f:
             pickle.dump(final_best_model, f)
         logger.info(f"Best model saved to {model_path}")
         
         # Save the preprocessing components (scaler and label encoders)
-        scaler_path = os.path.join(model_dir, "standard_scaler.pkl")
+        scaler_path = os.path.join(pickle_dir, "standard_scaler.pkl")
         with open(scaler_path, "wb") as f:
             pickle.dump(data['scaler'], f)
         logger.info(f"StandardScaler saved to {scaler_path}")
         
-        encoders_path = os.path.join(model_dir, "encoders.pkl")
+        encoders_path = os.path.join(pickle_dir, "encoders.pkl")
         with open(encoders_path, "wb") as f:
             pickle.dump(data['encoders'], f)
         logger.info(f"Encoders saved to {encoders_path}")
@@ -239,7 +248,7 @@ def select_and_register_best_model(best_models, best_metrics, client, data, mode
             "categorical_columns": data['categorical_cols'],
             "numerical_columns": data['numerical_cols']
         }
-        metadata_path = os.path.join(model_dir, "preprocessing_metadata.json")
+        metadata_path = os.path.join(meta_dir, "preprocessing_metadata.json")
         with open(metadata_path, "w") as f:
             json.dump(preprocessing_metadata, f, indent=4)
         logger.info(f"Preprocessing metadata saved to {metadata_path}")
@@ -255,12 +264,12 @@ def select_and_register_best_model(best_models, best_metrics, client, data, mode
         mlflow.log_artifact(metadata_path)
         mlflow.log_artifact(__file__)
         
-        # Create and log comparison table
-        comparison_df = pd.DataFrame(best_metrics).T
-        comparison_path = "model_comparison.csv"
-        comparison_df.to_csv(comparison_path)
-        mlflow.log_artifact(comparison_path)
-        logger.info(f"Model comparison saved to {comparison_path}")
+        # # Create and log comparison table
+        # comparison_df = pd.DataFrame(best_metrics).T
+        # comparison_path = "model_comparison.csv"
+        # comparison_df.to_csv(comparison_path)
+        # mlflow.log_artifact(comparison_path)
+        # logger.info(f"Model comparison saved to {comparison_path}")
         
         # Log input data
         train_df = pd.concat([data['X_train_smote'], 
@@ -317,10 +326,11 @@ def select_and_register_best_model(best_models, best_metrics, client, data, mode
             "model_name": model_name,
             "model_version": model_version,
             "best_model_type": best_model_name,
-            "f1_score": final_metrics['f1']
+            "f1_score": final_metrics['f1'],
+            "data_version": version
         }
         
-        registry_path = os.path.join(model_dir, "model_registry_info.json")
+        registry_path = os.path.join(meta_dir, "model_registry_info.json")
         with open(registry_path, "w") as f:
             json.dump(registry_info, f, indent=4)
         
@@ -334,7 +344,7 @@ def main():
     # Data and model paths
     FILE_PATH = "data/processed/processed_data.csv"
     REPO_PATH = "/home/rohith-ramanan/Desktop/DA5402/Patient_Readmission_Prediction"
-    VERSION = "v20250428_224705"
+    VERSION = "v20250430_101809"
     MODEL_DIR = "../../serving/backend/"
     CONFIG_PATH = "../config/model_params.yml"
     
@@ -354,7 +364,7 @@ def main():
     
     # Select and register the best model
     final_metrics, model_version, best_model_name = select_and_register_best_model(
-        best_models, best_metrics, client, data, MODEL_DIR)
+        best_models, best_metrics, client, data, MODEL_DIR, VERSION)
     
     # Print final results
     logger.info("\n==== FINAL RESULTS ====")

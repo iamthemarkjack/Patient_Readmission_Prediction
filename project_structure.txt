@@ -1,31 +1,54 @@
-Patient_Readmission_Prediction/
-├── .dvc/                      # DVC configuration
-├── .github/                   # Github configuration
-├── airflow/                   # Airflow DAGs
-│   ├── dags/                  # Data gathering and pipeline DAGs
-├── data/                      # Data directory (DVC tracked)
-│   ├── raw/                   # Raw data
-│   ├── processed/             # Processed data
-│   └── .gitignore             # Ignore data files, use DVC instead
-├── feature_store/             # Feature store implementation
-│   ├── config/                # Feature store configuration
-│   ├── features/              # Feature definitions
-│   └── pipelines/             # Feature generation pipelines
-├── models/                    # Model training and evaluation
-│   ├── training/              # Training scripts
-│   ├── evaluation/            # Evaluation scripts
-│   └── deployment/            # Model deployment code
-├── monitoring/                # Monitoring components
-│   ├── prometheus/            # Prometheus configuration
-│   ├── alertmanager/          # AlertManager configuration
-│   ├── concept_drift/         # Concept drift detection code
-│   └── dashboards/            # Grafana dashboards
-├── serving/                   # Model serving API
-│   ├── app/                   # API code
-│   └── Dockerfile             # Dockerfile for API service
-├── notebooks/                 # Jupyter notebooks for exploration
-├── tests/                     # Unit and integration tests
+Patient_Readmission_Prediction
+├── airflow                            # Directory containing airflow components
+│   ├── config                         # Airflow configurations
+│   ├── dags                           
+│   │   ├── load_data.py               # DAG to load data
+│   │   ├── process_data.py            # DAG to add features
+│   │   └── utils                      
+│   │       ├── add_feature.py         # Function to add features
+│   ├── docker-compose.yaml            # docker-compose yaml file for Airflow
+│   ├── logs                           # Airflow logs
+│   └── plugins                        # Airflow plugins
+├── data                              
+│   ├── dvc_auto_push.sh               # Shell script to push data automatically to dvc
+│   ├── processed                       
+│   │   ├── .gitignore
+│   │   └── processed_data.csv.dvc     # dvc file of the processed_data.csv
+│   └── raw
+├── .dvc
+├── .dvcignore
+├── flowchart.drawio                   # Flowchart explaining the ML pipeline
+├── .git
 ├── .gitignore
-├── docker-compose.yml         # Docker Compose configuration
-├── requirements.txt           # Python dependencies
-└── README.md                  # Project documentation
+├── LICENSE
+├── models
+│   ├── config
+│   │   └── model_params.yml
+│   └── training
+│       ├── mlruns
+│       └── train_models.py
+├── monitoring
+├── notebooks
+│   ├── analysis_src
+│   │   ├── basic_data_inspection.py
+│   │   ├── missing_values_analysis.py
+│   │   ├── plot_analysis.py
+│   ├── EDA.ipynb
+│   └── Test.ipynb
+├── project_structure.txt
+├── README.md
+├── requirements.txt
+├── serving
+│   ├── backend
+│   │   ├── app.py
+│   │   ├── Dockerfile
+│   │   ├── model_registry_info.json
+│   │   ├── preprocessing_metadata.json
+│   │   └── requirements.txt
+│   ├── docker-compose.yml
+│   └── frontend
+│       ├── Dockerfile
+│       ├── requirements.txt
+│       └── streamlit.py
+└── tests
+    └── test_feature_adders.py

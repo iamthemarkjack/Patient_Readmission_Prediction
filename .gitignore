@@ -7,11 +7,17 @@
 /.dvc
 
 # Ignore logs
-/training/model_building.log
+/models/training/model_building.log
 
 # Ignore mlruns
 /models/training/mlruns
 
 # Ignore __pycache__ 
 airflow/dags/__pycache__
+airflow/dags/utils/__pycache__
 /notebooks/analysis_src/__pycache__
+/tests/__pycache__
+
+# Ignore prometheus and node exporter
+/monitoring/node_exporter
+/monitoring/prometheus

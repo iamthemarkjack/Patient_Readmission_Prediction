@@ -1,3 +1,5 @@
+# DAG for Data Ingestion
+
 from datetime import datetime, timedelta
 import os
 import zipfile
@@ -98,7 +100,7 @@ with DAG(
     file_sensor = FileSensor(
         task_id='wait_for_file',
         filepath=RAW_DATA_DIR,
-        fs_conn_id='fs_default',  # Make sure this connection exists in Airflow
+        fs_conn_id='fs_default',
         poke_interval=1800,  # Check every 5 minutes
         timeout=60 * 60 * 24,  # Timeout after 24 hours
         mode='poke',
