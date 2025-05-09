@@ -52,13 +52,6 @@ This will start both the **backend (FastAPI)** and **frontend (Streamlit)** serv
 - **Versioned Models**: Every model and data version is tracked using MLflow and DVC
 - **Interactive UI**: Built with Streamlit for ease of use by healthcare professionals
 
-## 👩‍⚕️ Target Users
-
-- Healthcare Providers
-- Hospital Administrators
-- Clinical Researchers
-- IT Deployment Staff
-
 ## 📚 Documentation
 
 - **User Guide**: [User_Manual.pdf](./User_Manual.pdf)
